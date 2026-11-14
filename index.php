@@ -1,11 +1,27 @@
 <?php
 session_start();
 if(!isset($_SESSION['user'])){
-	header("Location: logowanie.php");
+    header("Location: logowanie.php");
+    exit();
 }
 
-?>
+$conn = mysqli_connect("localhost", "root", "", "baza");
 
+$zalogowany_user = $_SESSION['user'];
+$user_query = mysqli_query($conn, "SELECT id FROM users WHERE user='$zalogowany_user'");
+$user_data = mysqli_fetch_assoc($user_query);
+$user_id = $user_data['id'];
+
+$tasks_query = mysqli_query($conn, "SELECT * FROM tasks WHERE user_id='$user_id'");
+$tasks = [];
+while($row = mysqli_fetch_assoc($tasks_query)) {
+    $tasks[$row['task_date']][] = $row['content'];
+}
+
+$month = 11;
+$year = 2026;
+$days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -19,9 +35,6 @@ if(!isset($_SESSION['user'])){
     <div>
         <h1>Witaj</h1>
         <?php
-            $month = 11;
-            $year = 2026;
-            $days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
             echo "<h2>$month-$year</h2>";
         ?>
     </div>
@@ -31,9 +44,19 @@ if(!isset($_SESSION['user'])){
         <div class="kalendarz">
         <?php
             for($i = 1; $i <= $days; $i++) {
-
                 $fullDate = sprintf('%04d-%02d-%02d', $year, $month, $i);
-                echo '<div onclick="otworzFormularz(\'' . $fullDate . '\')">' . $i . '</div>';
+                echo '<div onclick="otworzFormularz(\'' . $fullDate . '\')">';
+                echo '<strong>' . $i . '</strong>';
+                
+                if(isset($tasks[$fullDate])) {
+                    echo '<div class="zadania-w-dniu">';
+                    foreach($tasks[$fullDate] as $tresc_zadania) {
+                        echo '<p>' . htmlspecialchars($tresc_zadania) . '</p>';
+                    }
+                    echo '</div>';
+                }
+                
+                echo '</div>';
             }
         ?>
         </div>

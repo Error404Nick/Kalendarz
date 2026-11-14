@@ -1,13 +1,148 @@
-.container{
-    display: grid;
-    grid-template-columns: auto auto auto;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.kalendarz{
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
+
+h1, h2 {
+    color: #2c3e50;
+    margin-bottom: 5px;
+    text-align: center;
 }
-.kalendarz div{
-    border: 2px solid;
-    width: 10vw;
-    height: 30px;
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.container button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.container button:hover {
+    background-color: #2980b9;
+}
+
+/* Siatka kalendarza - 7 kolumn (dni tygodnia) */
+.kalendarz {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    width: 560px;
+}
+
+/* Pojedynczy dzień */
+.kalendarz > div {
+    background-color: #ffffff;
+    border: 1px solid #dcdde1;
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 80px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.kalendarz > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-color: #3498db;
+}
+
+.kalendarz strong {
+    display: block;
+    font-size: 14px;
+    color: #2c3e50;
+    margin-bottom: 4px;
+}
+
+/* Wygląd zadań wewnątrz dnia */
+.zadania-w-dniu p {
+    font-size: 11px;
+    background-color: #e8f4fd;
+    color: #2980b9;
+    margin: 2px 0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Okienko modalne */
+dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    width: 320px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+dialog form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+dialog textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 8px;
+    border: 1px solid #dcdde1;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.przyciski {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.przyciski button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.przyciski button[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.przyciski button[type="button"] {
+    background-color: #e74c3c;
+    color: white;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+a:hover {
+    text-decoration: underline;
 }
