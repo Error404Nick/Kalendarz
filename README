@@ -1,0 +1,21 @@
+Aby projekt poprawnie działał potrzebna jest baza mysqli z nazwą "baza" (bardzo oryginalna nazwa).
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE tasks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    task_date DATE NOT NULL,
+    content TEXT NOT NULL
+);
+
+CREATE TABLE shared_calendars (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    owner_id INT NOT NULL,
+    shared_with_user_id INT NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending'
+);
