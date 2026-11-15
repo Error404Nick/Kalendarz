@@ -6,7 +6,7 @@ if($_POST){
 	$password = $_POST['password'];
 
 	mysqli_query($conn, "INSERT INTO users (user, password) VALUES ('$user', '$password')");
-	header("Location: login.php");
+	header("Location: logowanie.php");
 }
 ?>
 <!DOCTYPE html>
